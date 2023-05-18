@@ -1,0 +1,44 @@
+
+<header class="container-fluid no-gutter">
+    <div class="row align-items-center">
+        <div class="col-12 devanture">
+            <img src="{{ asset('images/Visuel_site_Fabien_avec_ombre.png') }}" alt="Devanture Restaurant">
+        </div>
+    </div>
+    {% if userConnected == true %}
+    <div class="row" id="helloUser">
+        Bonjour {{ user.getPrenom() }}
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-1 logo1">
+            <img src="{{ asset('images/Logo_La_goulee_vendeenne_proposition_4.png') }}" alt="Logo Header">
+        </div>
+        <div class="col nav-bar">
+            <nav class="col header-nav">
+                <ul>
+                    <li><a href="#menu-carte">La Carte</a></li>
+                    <li><a href="#gallery-container" onclick="showGallery()">photos</a></li>
+                    <li><a href="#reservationModal" id="reservationLinkModal" class="formulaire-reservation">Réservation</a></li>
+                    <li><a href="#infos-pratiques" id="infos-pratiques-link">Infos Pratiques</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-1 header-buttons">
+            {% if userConnected == true %}
+            <button id="deconnexion-btn"><a href="{{ path('deconnexion') }}">Deconnection</a></button>
+            {% else %}
+            <button id="connexion-btn" onclick="btnConnexionClick();">Connection</button>
+            {% endif %}
+            <i class="fa-solid fa-bars fa-xl" id="hamburger" style="color: #a42725; margin: 0px 20px 0px 20px;"></i>
+        </div>
+    </div>
+    <nav class="col mobile-nav">
+        <ul>
+            <li><a href="#menu-carte">La Carte</a></li>
+            <li><a href="#gallery-container" onclick="showGallery()">photos</a></li>
+            <li><a href="#reservationModal" class="formulaire-reservation">Réservation</a></li>
+            <li><a href="#infos-pratiques-mobile" id="infos-pratiques-link-mobile">Infos Pratiques</a></li>
+        </ul>
+    </nav>
+</header>

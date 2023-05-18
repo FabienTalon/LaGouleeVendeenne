@@ -1,0 +1,27 @@
+index:
+    path: /
+    controller: App\Controller\Acceuil::index
+
+plats:
+    path: /plats
+    controller: App\Controller\Plats::afficherPlats
+
+desserts:
+    path: /desserts
+    controller: App\Controller\Desserts::afficherDesserts
+
+boissons:
+    path: /boissons
+    controller: App\Controller\Boissons::afficherBoissons
+
+formules:
+    path: /formules
+    controller: App\Controller\Formules::afficherFormules
+
+connexion:
+    path: /connexion
+    controller: App\Controller\Connexion::register
+
+deconnexion:
+    path: /deconnexion
+    controller: App\Controller\DeconnexionController::deconnecterUtilisateur

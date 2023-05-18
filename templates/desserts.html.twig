@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+{% include 'head.html.twig' %}
+
+<body>
+
+{% include 'connexion.html.twig' %}
+
+{% include 'inscription.html.twig' %}
+
+{% include 'reservation.html.twig' %}
+
+<div class="gallery-overlay"></div>
+
+<div class="body-container">
+
+    {% include 'header.html.twig' %}
+
+    {% include 'galleriePhoto.html.twig' %}
+
+    {% include 'carousel.html.twig' %}
+
+    {% include 'mobileReservationInfo.html.twig' %}
+
+    {% include 'horizontalMenu.html.twig' %}
+
+    <div class="container-fluid no-gutter">
+        <div class="hero-content tab-content">
+            <div class="menu-container" id="menu-container">
+                <img src="{{ asset('images/empty-wooden-table-cloth-red-napkin.jpg') }}" alt="Fond écran carte">
+                <div class="flying-menu-container col-md-3" id="container">
+                    <div class="flying-menu" id="flying-menu">
+                        <img src="{{ asset('images/1000_F_230222374_BkT2DtDLfumKaOBcTfHswVnRBmmHq89r.jpg') }}" alt="Fond écran menu">
+                        {% include 'flyingMenu.html.twig' %}
+                    </div>
+                </div>
+                <div class="menu-carte" id="menu-carte">
+                    <div class="menu-title">
+                        <h2>La Carte</h2>
+                    </div>
+
+                    <div class="menu-desserts-block" id="desserts-container">
+                        {% for dessert in desserts %}
+                            <div class="menu-line">
+                                <div class="menu-line-info">
+                                    <span class="light-menu-separator"></span>
+                                    <h3 class="menu-line-info-title-h3">{{ dessert['titre'] }}</h3>
+                                    <span class="menu-separator"></span>
+                                    <div class="menu-price">
+                                        {{ dessert['prix'] }}
+                                    </div>
+                                </div>
+                                <p class="menu-p">{{ dessert['description'] }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="menu-allergenes">
+                        <button class="menu-allergenes-button">Allergènes</button>
+                    </div>
+                </div>
+            </div>
+            {% include 'desktopReservationInfo.html.twig' %}
+        </div>
+    </div>
+    {% include 'footer.html.twig' %}
+</div>
+<script src="{{ asset('js/script.js') }}"></script>
+</body>
+
+</html>

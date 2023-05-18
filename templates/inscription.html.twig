@@ -1,0 +1,69 @@
+{% if showRegistrationModal == true %}
+<div class="modal fade show" id="inscriptionModal" tabindex="-1" role="dialog" aria-labelledby="inscriptionModalLabel" aria-hidden="true" style="display: block">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inscriptionModalLabel">Inscription</h5>
+                <button type="button" class="close close-formular" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{ form_start(formInscription, {'attr': {'class': 'modal-body'}}) }}
+            <div class="form-group">
+                {{ form_label(formInscription.nom) }}
+                {{ form_widget(formInscription.nom, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(formInscription.prenom) }}
+                {{ form_widget(formInscription.prenom, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(formInscription.email) }}
+                {{ form_widget(formInscription.email, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(formInscription.plainPassword) }}
+            </div>
+            <div class="modal-footer">
+                {{ form_widget(formInscription.Inscription) }}
+            </div>
+            {{ form_end(formInscription) }}
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="modal fade" id="inscriptionModal" tabindex="-1" role="dialog" aria-labelledby="inscriptionModalLabel" aria-hidden="true" style="display: none">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inscriptionModalLabel">Inscription</h5>
+                <button type="button" class="close close-formular" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{ form_start(formInscription, {'attr': {'class': 'modal-body'}}) }}
+            <div class="form-group">
+                {{ form_label(formInscription.nom) }}
+                {{ form_widget(formInscription.nom, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(formInscription.prenom) }}
+                {{ form_widget(formInscription.prenom, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(formInscription.email) }}
+                {{ form_widget(formInscription.email, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(formInscription.plainPassword) }}
+            </div>
+            <div class="modal-footer">
+                {{ form_widget(formInscription.Inscription) }}
+            </div>
+            {{ form_end(formInscription) }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+

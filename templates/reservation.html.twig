@@ -1,0 +1,41 @@
+<div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservationModalLabel">Formulaire de réservation</h5>
+                <button type="button" class="close close-formular" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formReservation, {'attr': {'class': 'form-body'}}) }}
+                <div class="form-group">
+                    {{ form_label(formReservation.email) }}
+                    {{ form_widget(formReservation.email) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formReservation.date) }}
+                    {{ form_widget(formReservation.date, {'attr': {'onchange': 'dateChange()'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formReservation.heure) }}
+                    {{ form_widget(formReservation.heure) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formReservation.nombre_couverts) }}
+                    {{ form_widget(formReservation.nombre_couverts) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formReservation.allergies) }}
+                    {{ form_widget(formReservation.allergies) }}
+                </div>
+                <div class="modal-footer">
+                    {{ form_widget(formReservation.reserver) }}
+                </div>
+                {{ form_end(formReservation) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,62 @@
+
+{% if showLoginModal == true %}
+<div class="modal fade show" id="connexionModal" tabindex="-1" role="dialog" aria-labelledby="connexionModalLabel" aria-hidden="true" style="display: block">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="connexionModalLabel">Connexion</h5>
+                <button type="button" class="close close-formular" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{ form_start(form, {'attr': {'class': 'modal-body'}}) }}
+            <div class="form-group">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control', 'required': 'required','type': 'password'}}) }}
+            </div>
+            <div class="modal-footer">
+                {{ form_widget(form.Connexion, {'attr': {'class': 'btn btn-primary'}}) }}
+                <a class="formulaire-inscription" id="lienInscription" data-toggle="modal" data-dismiss="modal" data-target="#inscriptionModal">Vous n'avez pas de compte ? Inscrivez-vous !</a>
+            </div>
+            {{ form_end(form) }}
+            <div id="errorInscription">
+                {{ errorInscription }}
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="modal fade" id="connexionModal" tabindex="-1" role="dialog" aria-labelledby="connexionModalLabel" aria-hidden="true" style="display: none">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="connexionModalLabel">Connexion</h5>
+                <button type="button" class="close close-formular" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{ form_start(form, {'attr': {'class': 'modal-body'}}) }}
+            <div class="form-group">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control', 'required': 'required','type': 'password'}}) }}
+            </div>
+            <div class="modal-footer">
+                {{ form_widget(form.Connexion, {'attr': {'class': 'btn btn-primary'}}) }}
+                <a class="formulaire-inscription" id="lienInscription" data-toggle="modal" data-dismiss="modal" data-target="#inscriptionModal">Vous n'avez pas de compte ? Inscrivez-vous !</a>
+            </div>
+            {{ form_end(form) }}
+            <div id="errorInscription">
+                {{ errorInscription }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
