@@ -6,9 +6,15 @@
         </div>
     </div>
     {% if userConnected == true %}
-    <div class="row" id="helloUser">
-        Bonjour {{ user.getPrenom() }}
-    </div>
+        {% if user.getEstAdmin() == true %}
+        <div>
+            <button id="infos-pratiques-admin-button"><a href="{{ path('infos-pratiques') }}">Modifier Infos-Pratiques</a></button>
+            <button id="carte-admin-button">Modifier la Carte</button>
+        </div>
+        {% endif %}
+        <div class="row" id="helloUser">
+            Bonjour {{ user.getPrenom() }}
+        </div>
     {% endif %}
     <div class="row">
         <div class="col-1 logo1">

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+{% include 'head.html.twig' %}
+
+<body>
+
+{% include 'connexion.html.twig' %}
+
+{% include 'inscription.html.twig' %}
+
+{% include 'reservation.html.twig' %}
+
+<div class="gallery-overlay"></div>
+
+<div class="body-container">
+
+    {% include 'header.html.twig' %}
+
+    {% include 'galleriePhoto.html.twig' %}
+
+    {% include 'carousel.html.twig' %}
+
+    {% include 'mobileReservationInfo.html.twig' %}
+
+    {% include 'horizontalMenu.html.twig' %}
+
+    <div class="container-fluid no-gutter">
+        <div class="hero-content tab-content">
+            <div class="menu-container" id="menu-container">
+                <img src="{{ asset('images/empty-wooden-table-cloth-red-napkin.jpg') }}" alt="Fond écran carte">
+                <div class="flying-menu-container col-md-3" id="container">
+                    <div class="flying-menu" id="flying-menu">
+                        <img src="{{ asset('images/1000_F_230222374_BkT2DtDLfumKaOBcTfHswVnRBmmHq89r.jpg') }}" alt="Fond écran menu">
+                        {% include 'flyingMenu.html.twig' %}
+                    </div>
+                </div>
+                <div class="menu-carte" id="menu-carte">
+                    <div class="menu-title">
+                        <h2>La Carte</h2>
+                    </div>
+
+                    <div class="admin-infos-pratiques" id="admin-infos-pratiques">
+                        {{ form_start(formInfosPratiques, {'attr': {'class': 'form-body'}}) }}
+                        <div class="form-group">
+                        {{ form_label(formInfosPratiques.horairesmatinsemaine) }}
+                        {{ form_widget(formInfosPratiques.horairesmatinsemaine, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                        </div>
+                        <div class="form-group">
+                        {{ form_label(formInfosPratiques.horairessoirsemaine) }}
+                        {{ form_widget(formInfosPratiques.horairessoirsemaine, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                        </div>
+                        <div class="form-group">
+                        {{ form_label(formInfosPratiques.horairesmatinwk) }}
+                        {{ form_widget(formInfosPratiques.horairesmatinwk, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                        </div>
+                        <div class="form-group">
+                        {{ form_label(formInfosPratiques.horairessoirwk) }}
+                        {{ form_widget(formInfosPratiques.horairessoirwk, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                        </div>
+                        <div class="form-group">
+                        {{ form_widget(formInfosPratiques.valideredition, {'attr': {'class': 'btn btn-primary'}}) }}
+                        </div>
+                        {{ form_end(formInfosPratiques) }}
+                    </div>
+
+
+                    <div class="menu-allergenes">
+                        <button class="menu-allergenes-button">Allergènes</button>
+                    </div>
+                </div>
+            </div>
+            {% include 'desktopReservationInfo.html.twig' %}
+        </div>
+    </div>
+    {% include 'footer.html.twig' %}
+</div>
+<script src="{{ asset('js/script.js') }}"></script>
+</body>
+
+</html>

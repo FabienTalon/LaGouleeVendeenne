@@ -133,5 +133,22 @@ class DataBaseProvider
         ]);
     }
 
+    public function getDataInfosPratiques(): bool|array
+    {
+        $pdo = $this->connect();
+        $infosPratiques = $pdo->query('SELECT * FROM infospratiques ');
+        return $infosPratiques->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function majInfosPratiques($weekend_day, $horairesmatin, $horairessoir): void
+    {
+        $pdo = $this->connect();
+        $stmt = $pdo->prepare('UPDATE infospratiques SET horairesmatin = :horairesmatin, horairessoir = :horairessoir WHERE weekend_day = :weekend_day');
+        $stmt->execute([
+            'horairesmatin' => $horairesmatin,
+            'horairessoir' => $horairessoir,
+            'weekend_day' => $weekend_day,
+        ]);
+    }
 }
 

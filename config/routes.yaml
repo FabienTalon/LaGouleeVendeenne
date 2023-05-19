@@ -25,3 +25,7 @@ connexion:
 deconnexion:
     path: /deconnexion
     controller: App\Controller\DeconnexionController::deconnecterUtilisateur
+
+infos-pratiques:
+    path: /infos-pratiques
+    controller: App\Controller\InfosPratiquesAdmin::infosPratiquesAdmin

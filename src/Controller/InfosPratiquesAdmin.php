@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\ReservationFormType;
 use App\Form\ConnexionFormType;
 use App\Form\InscriptionFormType;
+use App\Form\EditInfosFormType;
 use PDOException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,11 +15,11 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 require_once 'DataBaseProvider.php';
 
-class Acceuil extends AbstractController
+class InfosPratiquesAdmin extends AbstractController
 {
 
-    #[Route('/', name: '/')]
-    public function index(Request $request, SessionInterface $session): Response
+    #[Route('/infos-pratiques', name: '/infos-pratiques')]
+    public function infosPratiquesAdmin(Request $request, SessionInterface $session): Response
     {
 
         // Vérifiez si l'utilisateur est connecté en vérifiant la session
@@ -40,11 +41,13 @@ class Acceuil extends AbstractController
 
         $formReservation->handleRequest($request);
 
+
         //Initialisation des variables
         $entrees = null;
         $dataBaseProvider = null;
         $errorInscription = '';
         $infosPratiques = null;
+
 
         //Récupération des plats
         try {
@@ -56,6 +59,29 @@ class Acceuil extends AbstractController
             echo 'Impossible de se connecter à la base de données';
             echo $PDOException->getMessage();
         }
+
+        $formInfosPratiques = $this->createForm(EditInfosFormType::class);
+        $formInfosPratiques->get('horairesmatinsemaine')->setData($infosPratiques[0]['horairesmatin']);
+        $formInfosPratiques->get('horairessoirsemaine')->setData($infosPratiques[0]['horairessoir']);
+        $formInfosPratiques->get('horairesmatinwk')->setData($infosPratiques[1]['horairesmatin']);
+        $formInfosPratiques->get('horairessoirwk')->setData($infosPratiques[1]['horairessoir']);
+
+        $formInfosPratiques->handleRequest($request);
+
+        if ($formInfosPratiques->isSubmitted() && $formInfosPratiques->isValid()) {
+            $dataBaseProvider->majInfosPratiques(
+                0,
+                $formInfosPratiques->get('horairesmatinsemaine')->getData(),
+                $formInfosPratiques->get('horairessoirsemaine')->getData()
+            );
+            $dataBaseProvider->majInfosPratiques(
+                1,
+                $formInfosPratiques->get('horairesmatinwk')->getData(),
+                $formInfosPratiques->get('horairessoirwk')->getData()
+            );
+            $infosPratiques = $dataBaseProvider->getDataInfosPratiques();
+        }
+
 
         //Submit du formulaire d'inscription
         if ($formInscription->isSubmitted() && $formInscription->isValid()) {
@@ -71,7 +97,7 @@ class Acceuil extends AbstractController
                 $errorInscription = 'Votre profil existe déja, vérifiez vos données de connection';
             }
 
-            return $this->render('acceuil.html.twig', [
+            return $this->render('infosPratiquesAdmin.html.twig', [
                 'entrees' => $entrees,
                 'showLoginModal' => true,
                 'showRegistrationModal' => false,
@@ -111,7 +137,7 @@ class Acceuil extends AbstractController
             }
 
 
-            return $this->render('acceuil.html.twig', [
+            return $this->render('infosPratiquesAdmin.html.twig', [
                 'entrees' => $entrees,
                 'showLoginModal' => $showLoginModal,
                 'showRegistrationModal' => false,
@@ -131,16 +157,16 @@ class Acceuil extends AbstractController
             $dateValue = $formReservation->get('date')->getData();
             $dateString = $dateValue->format('d-m-Y');
 
-                // Enregistrer la réservation dans la base de données en utilisant la fonction createReservation
-                $dataBaseProvider->createReservation(
-                    $dateString,
-                    $formReservation->get('heure')->getData(),
-                    $formReservation->get('nombre_couverts')->getData(),
-                    $formReservation->get('allergies')->getData(),
-                    $formReservation->get('email')->getData(),
-                );
+            // Enregistrer la réservation dans la base de données en utilisant la fonction createReservation
+            $dataBaseProvider->createReservation(
+                $dateString,
+                $formReservation->get('heure')->getData(),
+                $formReservation->get('nombre_couverts')->getData(),
+                $formReservation->get('allergies')->getData(),
+                $formReservation->get('email')->getData(),
+            );
 
-            return $this->render('acceuil.html.twig', [
+            return $this->render('infosPratiquesAdmin.html.twig', [
                 'entrees' => $entrees,
                 'showLoginModal' => false,
                 'showRegistrationModal' => $showRegistrationModal,
@@ -161,18 +187,34 @@ class Acceuil extends AbstractController
         }
 
         //Affichage de l'écran des entrées
-        return $this->render('acceuil.html.twig', [
-            'entrees' => $entrees,
-            'showLoginModal' => $showLoginModal,
-            'showRegistrationModal' => $showRegistrationModal,
-            'errorInscription' => '',
-            'form' => $form->createView(),
-            'formInscription' => $formInscription->createView(),
-            'formReservation' => $formReservation->createView(),
-            'userConnected' => $userConnected,
-            'infosPratiques' => $infosPratiques,
-            'user' => $user,
-        ]);
+        if ($userConnected == true && $user->getEstAdmin()) {
+            return $this->render('infosPratiquesAdmin.html.twig', [
+                'entrees' => $entrees,
+                'showLoginModal' => $showLoginModal,
+                'showRegistrationModal' => $showRegistrationModal,
+                'errorInscription' => '',
+                'form' => $form->createView(),
+                'formInscription' => $formInscription->createView(),
+                'formReservation' => $formReservation->createView(),
+                'formInfosPratiques' => $formInfosPratiques->createView(),
+                'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
+                'user' => $user,
+            ]);
+        } else {
+            return $this->render('acceuil.html.twig', [
+                'entrees' => $entrees,
+                'showLoginModal' => $showLoginModal,
+                'showRegistrationModal' => $showRegistrationModal,
+                'errorInscription' => '',
+                'form' => $form->createView(),
+                'formInscription' => $formInscription->createView(),
+                'formReservation' => $formReservation->createView(),
+                'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
+                'user' => $user,
+            ]);
+        }
     }
 }
 

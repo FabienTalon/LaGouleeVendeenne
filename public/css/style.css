@@ -147,6 +147,10 @@ nav a:hover {
   border: 1px solid #a42725;
   border-radius: 2px;
 }
+#infos-pratiques-admin-button {
+  justify-content: flex-end;
+  margin-right: 10px;
+}
 
 @media (max-width: 900px){
 
