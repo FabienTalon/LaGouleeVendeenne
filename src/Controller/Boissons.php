@@ -31,11 +31,16 @@ class Boissons extends AbstractController
         $form->handleRequest($request);
 
         $formReservation = $this->createForm(ReservationFormType::class);
+
+        if ($userConnected == true){
+            $formReservation->get('email')->setData($user->getEmail());
+        }
         $formReservation->handleRequest($request);
 
         //Initialisation des variables
         $boissons = null;
         $dataBaseProvider = null;
+        $errorInscription = '';
 
         //Récupération des boissons
         try {
@@ -57,7 +62,6 @@ class Boissons extends AbstractController
                     $formInscription->get('email')->getData(),
                     $formInscription->get('plainPassword')->getData(),
                     false);
-                $errorInscription = '';
             } else {
                 $errorInscription = 'Votre profil existe déja, vérifiez vos données de connection';
             }
@@ -71,6 +75,7 @@ class Boissons extends AbstractController
                 'form' => $form->createView(),
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
+                'userConnected' => $userConnected,
             ]);
         }
 
@@ -90,12 +95,13 @@ class Boissons extends AbstractController
                 $errorInscription = 'Mot de passe invalide';
                 $showLoginModal = true;
             } else {
-                $errorInscription = '';
                 $showLoginModal = false;
                 $userConnected = true;
 
                 // Create session and store user information
                 $session->set('user', $connexionUser);
+                $formReservation->get('email')->setData($connexionUser->getEmail());
+                $formReservation->handleRequest($request);
             }
 
 
@@ -111,6 +117,34 @@ class Boissons extends AbstractController
                 'userConnected' => $userConnected,
             ]);
         }
+
+        if ($formReservation->isSubmitted() && $formReservation->isValid()) {
+
+            $dateValue = $formReservation->get('date')->getData();
+            $dateString = $dateValue->format('d-m-Y');
+
+            // Enregistrer la réservation dans la base de données en utilisant la fonction createReservation
+            $dataBaseProvider->createReservation(
+                $dateString,
+                $formReservation->get('heure')->getData(),
+                $formReservation->get('nombre_couverts')->getData(),
+                $formReservation->get('allergies')->getData(),
+                $formReservation->get('email')->getData(),
+            );
+
+            return $this->render('boissons.html.twig', [
+                'boissons' => $boissons,
+                'showLoginModal' => false,
+                'showRegistrationModal' => $showRegistrationModal,
+                'errorInscription' => '',
+                'form' => $form->createView(),
+                'formInscription' => $formInscription->createView(),
+                'formReservation' => $formReservation->createView(),
+                'userConnected' => $userConnected,
+                'user' => $user,
+            ]);
+        }
+
 
         //Gestion de l'affichage du formulaire de connection non valide
         $showLoginModal = false;

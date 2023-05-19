@@ -33,6 +33,11 @@ class Acceuil extends AbstractController
         $form->handleRequest($request);
 
         $formReservation = $this->createForm(ReservationFormType::class);
+
+        if ($userConnected == true){
+            $formReservation->get('email')->setData($user->getEmail());
+        }
+
         $formReservation->handleRequest($request);
 
         //Initialisation des variables
@@ -99,6 +104,8 @@ class Acceuil extends AbstractController
 
                 // Create session and store user information
                 $session->set('user', $connexionUser);
+                $formReservation->get('email')->setData($connexionUser->getEmail());
+                $formReservation->handleRequest($request);
             }
 
 
@@ -117,41 +124,31 @@ class Acceuil extends AbstractController
 
 
         if ($formReservation->isSubmitted() && $formReservation->isValid()) {
-            // Récupérer les données soumises du formulaire de réservation
-            $reservation = $formReservation->getData();
 
-            try {
+            $dateValue = $formReservation->get('date')->getData();
+            $dateString = $dateValue->format('d-m-Y');
+
                 // Enregistrer la réservation dans la base de données en utilisant la fonction createReservation
                 $dataBaseProvider->createReservation(
-                    $reservation->get('date')->getDate(),
-                    $reservation->get('heure')->getHeure(),
-                    $reservation->get('nombre_personnes')->getNombrePersonnes(),
-                    $reservation->get('allergie')->getAllergie(),
-                    $reservation->get('email')->getEmailReservation()
+                    $dateString,
+                    $formReservation->get('heure')->getData(),
+                    $formReservation->get('nombre_couverts')->getData(),
+                    $formReservation->get('allergies')->getData(),
+                    $formReservation->get('email')->getData(),
                 );
 
-                // Autres actions (redirection, affichage de messages, etc.)
-            } catch (PDOException $PDOException) {
-                echo 'Impossible d\'enregistrer la réservation dans la base de données';
-                echo $PDOException->getMessage();
-            }
+            return $this->render('acceuil.html.twig', [
+                'entrees' => $entrees,
+                'showLoginModal' => false,
+                'showRegistrationModal' => $showRegistrationModal,
+                'errorInscription' => '',
+                'form' => $form->createView(),
+                'formInscription' => $formInscription->createView(),
+                'formReservation' => $formReservation->createView(),
+                'userConnected' => $userConnected,
+                'user' => $user,
+            ]);
         }
-
-// ...
-
-        return $this->render('acceuil.html.twig', [
-            'entrees' => $entrees,
-            'showLoginModal' => false,
-            'showRegistrationModal' => $showRegistrationModal,
-            'errorInscription' => '',
-            'form' => $form->createView(),
-            'formInscription' => $formInscription->createView(),
-            'formReservation' => $formReservation->createView(),
-            'userConnected' => $userConnected,
-            'user' => $user,
-        ]);
-
-
 
         //Gestion de l'affichage du formulaire de connection non valide
         $showLoginModal = false;

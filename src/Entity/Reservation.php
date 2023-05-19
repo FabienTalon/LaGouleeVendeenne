@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Scalar\String_;
 
 /**
  * @ORM\Entity
@@ -19,14 +20,14 @@ class Reservation
     private int $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string")
      */
-    private ?DateTime $date;
+    private string $date;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="string", length=5)
      */
-    private ?DateTime $heure;
+    private string $heure;
 
     /**
      * @ORM\Column(type="integer")
@@ -51,24 +52,24 @@ class Reservation
         return $this->id;
     }
 
-    public function getDate(): ?DateTime
+    public function getDate(): ?string
     {
         return $this->date;
     }
 
-    public function setDate(DateTime $date): self
+    public function setDate(string $date): self
     {
         $this->date = $date;
 
         return $this;
     }
 
-    public function getHeure(): ?DateTime
+    public function getHeure(): ?string
     {
         return $this->heure;
     }
 
-    public function setHeure(DateTime $heure): self
+    public function setHeure(string $heure): self
     {
         $this->heure = $heure;
 
