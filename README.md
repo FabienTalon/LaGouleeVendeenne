@@ -31,19 +31,19 @@ default-character-set=utf8mb4
 
 Dans ce même pannel de contrôle de Xampp, ouvrir le fichier httpd-xampp.conf et rajouter ces lignes à la fin du fichier :
 
-<VirtualHost *:80>
-ServerName laGouleeVendeenne.localhost
+    <VirtualHost *:80>
+    ServerName laGouleeVendeenne.localhost
 
     DocumentRoot "C:/xampp/apps/symfony/public"
     DirectoryIndex index.php
 
     <Directory "C:/xampp/apps/symfony/public">
 
-Require all granted
+    Require all granted
 
         FallbackResource /index.php
     </Directory>
-</VirtualHost>
+    </VirtualHost>
 
 Idem pour le fichier config.inc.php où il faut remplacer les lignes sous /* Authentication type and info */ :
 
