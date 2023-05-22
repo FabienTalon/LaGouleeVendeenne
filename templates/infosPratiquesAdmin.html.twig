@@ -40,26 +40,26 @@
                         <h2>La Carte</h2>
                     </div>
 
-                    <div class="admin-infos-pratiques" id="admin-infos-pratiques">
+                    <div class="modal-body">
                         {{ form_start(formInfosPratiques, {'attr': {'class': 'form-body'}}) }}
                         <div class="form-group">
-                        {{ form_label(formInfosPratiques.horairesmatinsemaine) }}
-                        {{ form_widget(formInfosPratiques.horairesmatinsemaine, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                            {{ form_label(formInfosPratiques.horairesmatinsemaine) }}
+                            {{ form_widget(formInfosPratiques.horairesmatinsemaine, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
                         </div>
                         <div class="form-group">
-                        {{ form_label(formInfosPratiques.horairessoirsemaine) }}
-                        {{ form_widget(formInfosPratiques.horairessoirsemaine, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                            {{ form_label(formInfosPratiques.horairessoirsemaine) }}
+                            {{ form_widget(formInfosPratiques.horairessoirsemaine, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
                         </div>
                         <div class="form-group">
-                        {{ form_label(formInfosPratiques.horairesmatinwk) }}
-                        {{ form_widget(formInfosPratiques.horairesmatinwk, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                            {{ form_label(formInfosPratiques.horairesmatinwk) }}
+                            {{ form_widget(formInfosPratiques.horairesmatinwk, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
                         </div>
                         <div class="form-group">
-                        {{ form_label(formInfosPratiques.horairessoirwk) }}
-                        {{ form_widget(formInfosPratiques.horairessoirwk, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                            {{ form_label(formInfosPratiques.horairessoirwk) }}
+                            {{ form_widget(formInfosPratiques.horairessoirwk, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
                         </div>
-                        <div class="form-group">
-                        {{ form_widget(formInfosPratiques.valideredition, {'attr': {'class': 'btn btn-primary'}}) }}
+                        <div class="modal-footer">
+                            {{ form_widget(formInfosPratiques.valideredition, {'attr': {'class': 'btn btn-primary form-button'}}) }}
                         </div>
                         {{ form_end(formInfosPratiques) }}
                     </div>

@@ -75,6 +75,7 @@ class Acceuil extends AbstractController
                 'entrees' => $entrees,
                 'showLoginModal' => true,
                 'showRegistrationModal' => false,
+                'showDataUser' => false,
                 'errorInscription' => $errorInscription,
                 'form' => $form->createView(),
                 'formInscription' => $formInscription->createView(),

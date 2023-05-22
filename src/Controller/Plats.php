@@ -6,11 +6,12 @@ use App\Form\ReservationFormType;
 use App\Form\ConnexionFormType;
 use App\Form\InscriptionFormType;
 use PDOException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
+
 require_once 'DataBaseProvider.php';
 
 class Plats extends AbstractController
@@ -31,17 +32,24 @@ class Plats extends AbstractController
         $form->handleRequest($request);
 
         $formReservation = $this->createForm(ReservationFormType::class);
+
+        if ($userConnected == true){
+            $formReservation->get('email')->setData($user->getEmail());
+        }
+
         $formReservation->handleRequest($request);
 
         //Initialisation des variables
         $plats = null;
         $dataBaseProvider = null;
         $errorInscription = '';
+        $infosPratiques = null;
 
         //Récupération des plats
         try {
             $dataBaseProvider = new DataBaseProvider();
             $plats = $dataBaseProvider->getPlats();
+            $infosPratiques = $dataBaseProvider->getDataInfosPratiques();
         }
         catch (PDOException $PDOException) {
             echo'Impossible de se connecter à la base de données';
@@ -73,6 +81,7 @@ class Plats extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
             ]);
         }
 
@@ -112,6 +121,7 @@ class Plats extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
             ]);
         }
 
@@ -138,6 +148,7 @@ class Plats extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
                 'user' => $user,
             ]);
         }
@@ -158,6 +169,7 @@ class Plats extends AbstractController
             'formInscription' => $formInscription->createView(),
             'formReservation' => $formReservation->createView(),
             'userConnected' => $userConnected,
+            'infosPratiques' => $infosPratiques,
             'user' => $user,
         ]);
     }

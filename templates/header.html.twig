@@ -7,7 +7,7 @@
     </div>
     {% if userConnected == true %}
         {% if user.getEstAdmin() == true %}
-        <div>
+        <div id="btn-admin">
             <button id="infos-pratiques-admin-button"><a href="{{ path('infos-pratiques') }}">Modifier Infos-Pratiques</a></button>
             <button id="carte-admin-button">Modifier la Carte</button>
         </div>
@@ -25,7 +25,7 @@
                 <ul>
                     <li><a href="#menu-carte">La Carte</a></li>
                     <li><a href="#gallery-container" onclick="showGallery()">photos</a></li>
-                    <li><a href="#reservationModal" id="reservationLinkModal" class="formulaire-reservation">Réservation</a></li>
+                    <li><a href="#reservationModal" onclick="btnReservationClick();">Réservation</a></li>
                     <li><a href="#infos-pratiques" id="infos-pratiques-link">Infos Pratiques</a></li>
                 </ul>
             </nav>
@@ -36,14 +36,14 @@
             {% else %}
             <button id="connexion-btn" onclick="btnConnexionClick();">Connection</button>
             {% endif %}
-            <i class="fa-solid fa-bars fa-xl" id="hamburger" style="color: #a42725; margin: 0px 20px 0px 20px;"></i>
+            <i class="fa-solid fa-bars fa-xl" id="hamburger" style="color: #a42725; margin: 0 20px 0 20px;"></i>
         </div>
     </div>
     <nav class="col mobile-nav">
         <ul>
             <li><a href="#menu-carte">La Carte</a></li>
             <li><a href="#gallery-container" onclick="showGallery()">photos</a></li>
-            <li><a href="#reservationModal" class="formulaire-reservation">Réservation</a></li>
+            <li><a href="#reservationModal" onclick="btnReservationClick();">Réservation</a></li>
             <li><a href="#infos-pratiques-mobile" id="infos-pratiques-link-mobile">Infos Pratiques</a></li>
         </ul>
     </nav>

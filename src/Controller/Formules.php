@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Form\ConnexionFormType;
 use App\Form\ReservationFormType;
-use PDOException;
 use App\Form\InscriptionFormType;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use PDOException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
+
 require_once 'DataBaseProvider.php';
 
 class Formules extends AbstractController
@@ -42,11 +43,13 @@ class Formules extends AbstractController
         $formules = null;
         $dataBaseProvider = null;
         $errorInscription = '';
+        $infosPratiques = null;
 
         //Récupération des formules
         try {
             $dataBaseProvider = new DataBaseProvider();
             $formules = $dataBaseProvider->getFormules();
+            $infosPratiques = $dataBaseProvider->getDataInfosPratiques();
         }
         catch (PDOException $PDOException) {
             echo'Impossible de se connecter à la base de données';
@@ -77,6 +80,7 @@ class Formules extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
             ]);
         }
 
@@ -116,6 +120,7 @@ class Formules extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
             ]);
         }
 
@@ -142,6 +147,7 @@ class Formules extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
                 'user' => $user,
             ]);
         }
@@ -162,6 +168,7 @@ class Formules extends AbstractController
             'formInscription' => $formInscription->createView(),
             'formReservation' => $formReservation->createView(),
             'userConnected' => $userConnected,
+            'infosPratiques' => $infosPratiques,
             'user' => $user,
         ]);
     }

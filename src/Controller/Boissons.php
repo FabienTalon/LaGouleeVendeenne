@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Form\ConnexionFormType;
 use App\Form\ReservationFormType;
-use PDOException;
 use App\Form\InscriptionFormType;
+use PDOException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 require_once 'DataBaseProvider.php';
 
 class Boissons extends AbstractController
@@ -41,11 +42,13 @@ class Boissons extends AbstractController
         $boissons = null;
         $dataBaseProvider = null;
         $errorInscription = '';
+        $infosPratiques = null;
 
         //Récupération des boissons
         try {
             $dataBaseProvider = new DataBaseProvider();
             $boissons = $dataBaseProvider->getBoissons();
+            $infosPratiques = $dataBaseProvider->getDataInfosPratiques();
         }
         catch (PDOException $PDOException) {
             echo'Impossible de se connecter à la base de données';
@@ -76,6 +79,7 @@ class Boissons extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
             ]);
         }
 
@@ -115,6 +119,7 @@ class Boissons extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
             ]);
         }
 
@@ -141,6 +146,7 @@ class Boissons extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
                 'user' => $user,
             ]);
         }
@@ -162,6 +168,7 @@ class Boissons extends AbstractController
             'formInscription' => $formInscription->createView(),
             'formReservation' => $formReservation->createView(),
             'userConnected' => $userConnected,
+            'infosPratiques' => $infosPratiques,
             'user' => $user,
         ]);
     }

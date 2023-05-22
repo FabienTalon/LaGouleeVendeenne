@@ -6,11 +6,12 @@ use App\Form\ConnexionFormType;
 use App\Form\InscriptionFormType;
 use App\Form\ReservationFormType;
 use PDOException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
+
 require_once 'DataBaseProvider.php';
 
 class Desserts extends AbstractController
@@ -41,11 +42,13 @@ class Desserts extends AbstractController
         $desserts = null;
         $dataBaseProvider = null;
         $errorInscription = '';
+        $infosPratiques = null;
 
         //Récupération des desserts
         try {
             $dataBaseProvider = new DataBaseProvider();
             $desserts = $dataBaseProvider->getDesserts();
+            $infosPratiques = $dataBaseProvider->getDataInfosPratiques();
         }
         catch (PDOException $PDOException) {
             echo'Impossible de se connecter à la base de données';
@@ -76,6 +79,7 @@ class Desserts extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
             ]);
         }
 
@@ -115,6 +119,7 @@ class Desserts extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
             ]);
         }
 
@@ -141,6 +146,7 @@ class Desserts extends AbstractController
                 'formInscription' => $formInscription->createView(),
                 'formReservation' => $formReservation->createView(),
                 'userConnected' => $userConnected,
+                'infosPratiques' => $infosPratiques,
                 'user' => $user,
             ]);
         }
@@ -161,6 +167,7 @@ class Desserts extends AbstractController
             'formInscription' => $formInscription->createView(),
             'formReservation' => $formReservation->createView(),
             'userConnected' => $userConnected,
+            'infosPratiques' => $infosPratiques,
             'user' => $user,
         ]);
     }

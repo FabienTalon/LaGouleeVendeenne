@@ -15,10 +15,30 @@ class EditInfosFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('horairesmatinsemaine', textType::class)
-            ->add('horairessoirsemaine', textType::class)
-            ->add('horairesmatinwk', textType::class)
-            ->add('horairessoirwk', textType::class)
+            ->add('horairesmatinsemaine',textType::class,[
+                'label' => 'Changer les horaires du Lundi - Vendredi (Matin)',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('horairessoirsemaine', textType::class, [
+                'label' => 'Changer les horaires du Lundi - Vendredi (Soir)',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('horairesmatinwk', textType::class, [
+                'label' => 'Changer les horaires du Samedi (Matin)',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ])
+            ->add('horairessoirwk', textType::class, [
+                'label' => 'Changer les horaires du Samedi (Soir)',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ])
             ->add('valideredition', SubmitType::class, [
                 'label' => 'Valider',
                 ]);

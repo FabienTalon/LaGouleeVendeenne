@@ -29,51 +29,53 @@
       link.href = "#infos-pratiques";
     }
   }
-  
-  // Appel initial pour mettre à jour le lien en fonction de la largeur de l'écran au chargement de la page
+
+// Appel initial pour mettre à jour le lien en fonction de la largeur de l'écran au chargement de la page
   updateInfoPratiquesLink();
   
-  // Écouteur d'événement pour mettre à jour le lien lors du redimensionnement de l'écran
+// Écouteur d'événement pour mettre à jour le lien lors du redimensionnement de l'écran
   window.addEventListener("resize", updateInfoPratiquesLink);
 
   
 //MENU HAMBURGER
 
-const hamburger = document.getElementById("hamburger");
-const mobileNav = document.querySelector(".mobile-nav");
+  const hamburger = document.getElementById("hamburger");
+  const mobileNav = document.querySelector(".mobile-nav");
 
-hamburger.addEventListener("click", () => {
-  mobileNav.classList.toggle("active");
-});
+  hamburger.addEventListener("click", () => {
+    mobileNav.classList.toggle("active");
+  });
 
-// carousel
+// CAROUSEL
 
 const carouselImages = document.querySelector('.carousel-images');
 const navButtons = document.querySelectorAll('.nav-button');
 
 let currentIndex = 0;
 
-// Hide all images except the first one
+// Cache toutes les images excepté la première
+
 for (let i = 1; i < carouselImages.children.length; i++) {
   carouselImages.children[i].style.display = 'none';
 }
 
-// Add click event listener to nav buttons
+// Ajout d'un écouteur d'événements de clic aux boutons de navigation
+
 for (let i = 0; i < navButtons.length; i++) {
   navButtons[i].addEventListener('click', () => {
-    // Remove active class from all nav buttons
+    // Supprimer la classe active de tous les boutons de navigation
     for (let j = 0; j < navButtons.length; j++) {
       navButtons[j].classList.remove('active');
     }
 
-    // Show the image corresponding to the clicked button
+    // Afficher l'image correspondant au bouton cliqué.
     currentIndex = parseInt(navButtons[i].getAttribute('data-index')) - 1;
     carouselImages.children[currentIndex].style.display = 'block';
 
-    // Add active class to the clicked button
+    // Ajouter la classe active au bouton cliqué.
     navButtons[i].classList.add('active');
 
-    // Hide all other images
+    // Masquer toutes les autres images.
     for (let j = 0; j < carouselImages.children.length; j++) {
       if (j !== currentIndex) {
         carouselImages.children[j].style.display = 'none';
@@ -82,7 +84,7 @@ for (let i = 0; i < navButtons.length; i++) {
   });
 }
 
-// Show the first image and set the first button as active
+// Afficher la première image et définir le premier bouton comme actif.
 carouselImages.children[currentIndex].style.display = 'block';
 navButtons[currentIndex].classList.add('active');
 
@@ -92,19 +94,26 @@ const images = [
   ['images/mogettes-de-vendee-a-la-graisse-de-canard-51-recette-jambon-de-vendee-et-mogettes-scaled-1.jpg', 'images/botifarra.jpg', 'images/IMG_5729.jpeg'],
   ['images/77778_w1024h768c1cx3024cy2016.webp', 'images/Tourtisseaux.jpg', 'images/23777155_s_3.735x0-is.jpg']
 ];
+
+const titles = [
+  ['Briochine foie gras', 'Grillons de porc', 'Préfou'],
+  ['Mogettes Jambon', 'Boudine grillée', 'Potée choux vert'],
+  ['Brioche tressée Vendéenne', 'Tourtisseaux', 'Caillebotte']
+];
 function updateCarouselImages(imgIndex) {
   for (let i = 0; i < carouselImagesList.length; i++) {
     carouselImagesList[i].src = images[imgIndex][i];
+    carouselImagesList[i].alt = titles[imgIndex][i];
+    carouselImagesList[i].title = titles[imgIndex][i];
   }
 }
+
+
 var entreesContainer = null;
 var platsContainer = null;
 var dessertsContainer = null;
 var formulesContainer = null;
 var boissonsContainer = null;
-
-
-
 
 $(document).ready(function() {
 
@@ -142,6 +151,7 @@ function dateChange() {
       addHalfHourOption(hour, heureSelect);
     }
     addHourOption(14, heureSelect);
+
     // Ajouter les heures disponibles entre 19h et 22h
     for (var hour = 19; hour <= 22; hour++) {
       addHourOption(hour, heureSelect);
@@ -153,6 +163,7 @@ function dateChange() {
       addHalfHourOption(hour, heureSelect);
     }
     addHourOption(14, heureSelect);
+
     // Ajouter les heures disponibles entre 19h et 21h
     for (var hour = 19; hour <= 21; hour++) {
       addHourOption(hour, heureSelect);
@@ -176,7 +187,7 @@ function addHalfHourOption(hour, selectElement) {
   selectElement.add(option);
 }
 
-//modale connection/inscription
+// Sélectionner les éléments HTML correspondant aux modales de connexion, d'inscription et de réservation
 
 const modalConnexion = document.querySelector('#connexionModal');
 const modalInscription = document.querySelector('#inscriptionModal');
@@ -184,38 +195,46 @@ const lienInscription = document.querySelector('#lienInscription');
 const errorInscription = document.querySelector('#errorInscription');
 const modalReservation = document.querySelector('#reservationModal');
 
+// Fonction appelée lors du clic sur le bouton de réservation
 function btnReservationClick(){
   afficherModal(modalReservation);
 }
 
+// Ajouter un écouteur d'événement de clic sur le bouton de fermeture de la modale de réservation
 modalReservation.querySelector('.close-formular').addEventListener('click', function() {
   masquerModal(modalReservation);
 });
 
-
+// Fonction pour afficher une modale spécifiée
 function afficherModal(modal) {
   modal.classList.add('show');
   modal.style.display = 'block';
   errorInscription.style.display = 'none';
 }
+
+// Fonction pour masquer une modale spécifiée
 function masquerModal(modal) {
   modal.classList.remove('show');
   modal.style.display = 'none';
 }
 
+// Fonction appelée lors du clic sur le bouton de connexion
 function btnConnexionClick(){
   afficherModal(modalConnexion);
 }
 
+// Ajouter un écouteur d'événement de clic sur le lien d'inscription pour basculer vers la modale d'inscription
 lienInscription.addEventListener('click', function() {
   masquerModal(modalConnexion);
   afficherModal(modalInscription);
 });
 
+// Ajouter un écouteur d'événement de clic sur le bouton de fermeture de la modale de connexion
 modalConnexion.querySelector('.close-formular').addEventListener('click', function() {
   masquerModal(modalConnexion);
 });
 
+// Ajouter un écouteur d'événement de clic sur le bouton de fermeture de la modale d'inscription
 modalInscription.querySelector('.close-formular').addEventListener('click', function() {
   masquerModal(modalInscription);
 });
