@@ -21,13 +21,13 @@ Extraire le contenu du dossier LaGouleeVendeenne-master dans le dossier Xampp\ap
 Dans le pannel de contrôle de Xampp, ouvrir le fichier my.ini et remplacer le port 3306 par le port 3307
 sous les lignes :
 
-'# password       = your_password'
+    '# password       = your_password'
 
 et
 
-'# The MySQL server'
-default-character-set=utf8mb4
-[mysqld]
+    '# The MySQL server'
+    default-character-set=utf8mb4
+    [mysqld]
 
 Dans ce même pannel de contrôle de Xampp, ouvrir le fichier httpd-xampp.conf et rajouter ces lignes à la fin du fichier :
 
@@ -47,16 +47,16 @@ Dans ce même pannel de contrôle de Xampp, ouvrir le fichier httpd-xampp.conf e
 
 Idem pour le fichier config.inc.php où il faut remplacer les lignes sous /* Authentication type and info */ :
 
-$cfg['Servers'][$i]['auth_type'] = 'config';
-$cfg['Servers'][$i]['user'] = 'root';
-$cfg['Servers'][$i]['password'] = '';
-$cfg['Servers'][$i]['extension'] = 'mysqli';
-$cfg['Servers'][$i]['AllowNoPassword'] = true;
-$cfg['Lang'] = '';
+    $cfg['Servers'][$i]['auth_type'] = 'config';
+    $cfg['Servers'][$i]['user'] = 'root';
+    $cfg['Servers'][$i]['password'] = '';
+    $cfg['Servers'][$i]['extension'] = 'mysqli';
+    $cfg['Servers'][$i]['AllowNoPassword'] = true;
+    $cfg['Lang'] = '';
 
-/* Bind to the localhost ipv4 address and tcp */
-$cfg['Servers'][$i]['host'] = 'localhost:3307';
-$cfg['Servers'][$i]['connect_type'] = 'tcp';
+    /* Bind to the localhost ipv4 address and tcp */
+    $cfg['Servers'][$i]['host'] = 'localhost:3307';
+    $cfg['Servers'][$i]['connect_type'] = 'tcp';
 
 Pour la suite, ouvrir un bloc note en mode Administrateur et éditer le fichier C:\Windows\System32\drivers\etc\hosts :
 
