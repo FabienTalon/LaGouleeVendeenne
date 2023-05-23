@@ -31,29 +31,31 @@ class Boissons extends AbstractController
         $form = $this->createForm(ConnexionFormType::class);
         $form->handleRequest($request);
 
-        $formReservation = $this->createForm(ReservationFormType::class);
-
-        if ($userConnected == true){
-            $formReservation->get('email')->setData($user->getEmail());
-        }
-        $formReservation->handleRequest($request);
-
         //Initialisation des variables
         $boissons = null;
         $dataBaseProvider = null;
         $errorInscription = '';
         $infosPratiques = null;
 
-        //Récupération des boissons
+        //Récupération des plats
         try {
             $dataBaseProvider = new DataBaseProvider();
             $boissons = $dataBaseProvider->getBoissons();
             $infosPratiques = $dataBaseProvider->getDataInfosPratiques();
         }
         catch (PDOException $PDOException) {
-            echo'Impossible de se connecter à la base de données';
-            echo $PDOException->getMessage()  ;
+            echo 'Impossible de se connecter à la base de données';
+            echo $PDOException->getMessage();
         }
+
+        $formReservation = $this->createForm(ReservationFormType::class);
+
+        if ($userConnected == true){
+            $formReservation->get('email')->setData($user->getEmail());
+            $formReservation->get('allergies')->setData($dataBaseProvider->getUserAllergie($user->getEmail()));
+        }
+
+        $formReservation->handleRequest($request);
 
         //Soumission du formulaire d'inscription
         if ($formInscription->isSubmitted() && $formInscription->isValid()) {
@@ -102,9 +104,12 @@ class Boissons extends AbstractController
                 $showLoginModal = false;
                 $userConnected = true;
 
-                // Create session and store user information
+                // Enregistrement du user en session
                 $session->set('user', $connexionUser);
+
+                //Initialisation du formulaire de reservation avec les données du user
                 $formReservation->get('email')->setData($connexionUser->getEmail());
+                $formReservation->get('allergies')->setData($dataBaseProvider->getUserAllergie($connexionUser->getEmail()));
                 $formReservation->handleRequest($request);
             }
 

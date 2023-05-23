@@ -1,13 +1,13 @@
 
 
-//bouton d'ouverture' de la galerie d'images
+//Bouton d'ouverture' de la galerie d'images
 
   function showGallery() {
     $('#gallery-container').show();
     document.body.classList.add('gallery-active');
   }
 
-//bouton de fermeture de la galerie d'images
+//Bouton de fermeture de la galerie d'images
 
   function closeGallery() {
     var gallery = document.getElementById('gallery-container');
@@ -138,38 +138,103 @@ function dateChange() {
 
   var selectedDate = new Date(dateInput.value);
   var today = new Date();
+  var todayHour = today.getHours();
+  var todayMin = today.getMinutes();
 
   // Vider la liste déroulante des heures
   heureSelect.innerHTML = '';
 
-  // Récupérer l'heure actuelle
-  var currentHour = today.getHours();
+  if(selectedDate.getDate() !== today.getDate()){
+    if (selectedDate.getDay() === 6) {
+      for (var hour = 12; hour <= 13; hour++) {
+        addHourOption(hour, heureSelect);
+        addHalfHourOption(hour, heureSelect);
+      }
+      addHourOption(14, heureSelect);
 
-  if (selectedDate.getDay() === 6) {
-    for (var hour = 12; hour <= 13; hour++) {
-      addHourOption(hour, heureSelect);
-      addHalfHourOption(hour, heureSelect);
-    }
-    addHourOption(14, heureSelect);
+      // Ajouter les heures disponibles entre 19h et 22h
+      for (var hour = 19; hour <= 22; hour++) {
+        addHourOption(hour, heureSelect);
+        addHalfHourOption(hour, heureSelect);
+      }
+    } else {
+      for (var hour = 12; hour <= 13; hour++) {
+        addHourOption(hour, heureSelect);
+        addHalfHourOption(hour, heureSelect);
+      }
+      addHourOption(14, heureSelect);
 
-    // Ajouter les heures disponibles entre 19h et 22h
-    for (var hour = 19; hour <= 22; hour++) {
-      addHourOption(hour, heureSelect);
-      addHalfHourOption(hour, heureSelect);
+      // Ajouter les heures disponibles entre 19h et 21h
+      for (var hour = 19; hour <= 21; hour++) {
+        addHourOption(hour, heureSelect);
+        addHalfHourOption(hour, heureSelect);
+      }
+      addHourOption(22, heureSelect);
     }
-  } else {
-    for (var hour = 12; hour <= 13; hour++) {
-      addHourOption(hour, heureSelect);
-      addHalfHourOption(hour, heureSelect);
-    }
-    addHourOption(14, heureSelect);
+  }else {
+    if (selectedDate.getDay() === 6) {
+      if (todayHour < 11 || (todayHour === 11 && todayMin <= 30)) {
+        for (var hour = 12; hour <= 13; hour++) {
+          addHourOption(hour, heureSelect);
+          addHalfHourOption(hour, heureSelect);
+        }
+      }
+      if (todayHour > 11 || (todayHour === 11 && todayMin >= 30)) {
+        for (var hour = todayHour+1; hour <= 13; hour++) {
+          addHourOption(hour, heureSelect);
+          addHalfHourOption(hour, heureSelect);
+        }
+      }
+      if (todayHour < 13 || (todayHour === 13 && todayMin <= 30)){
+        addHourOption(14, heureSelect);
+      }
 
-    // Ajouter les heures disponibles entre 19h et 21h
-    for (var hour = 19; hour <= 21; hour++) {
-      addHourOption(hour, heureSelect);
-      addHalfHourOption(hour, heureSelect);
+      // Ajouter les heures disponibles entre 19h et 22h
+      if (todayHour < 18 || (todayHour === 18 && todayMin <= 30)) {
+        for (var hour = 19; hour <= 21; hour++) {
+          addHourOption(hour, heureSelect);
+          addHalfHourOption(hour, heureSelect);
+        }
+      }
+      if (todayHour > 18 || (todayHour === 18 && todayMin >= 30)){
+        for (var hour = todayHour+1; hour <= 22; hour++) {
+          addHourOption(hour, heureSelect);
+          addHalfHourOption(hour, heureSelect);
+        }
+      }
+    } else {
+      if (todayHour < 11 || (todayHour === 11 && todayMin <= 30)) {
+        for (var hour = 12; hour <= 13; hour++) {
+          addHourOption(hour, heureSelect);
+          addHalfHourOption(hour, heureSelect);
+        }
+      }
+      if (todayHour > 11 || (todayHour === 11 && todayMin >= 30)) {
+        for (var hour = todayHour+1; hour <= 13; hour++) {
+          addHourOption(hour, heureSelect);
+          addHalfHourOption(hour, heureSelect);
+        }
+      }
+      if (todayHour < 13 || (todayHour === 13 && todayMin <= 30)){
+      addHourOption(14, heureSelect);
+      }
+      // Ajouter les heures disponibles entre 19h et 21h
+      if (todayHour < 18 || (todayHour === 18 && todayMin <= 30)) {
+        for (var hour = 19; hour <= 21; hour++) {
+          addHourOption(hour, heureSelect);
+          addHalfHourOption(hour, heureSelect);
+        }
+      }
+      if (todayHour > 18 || (todayHour === 18 && todayMin >= 30)){
+        for (var hour = todayHour+1; hour <= 21; hour++) {
+          addHourOption(hour, heureSelect);
+          addHalfHourOption(hour, heureSelect);
+        }
+      }
+      if (todayHour < 21 || (todayHour === 21 && todayMin <= 30)){
+      addHourOption(22, heureSelect);
+      }
     }
-    addHourOption(22, heureSelect);
   }
 }
 
@@ -187,7 +252,7 @@ function addHalfHourOption(hour, selectElement) {
   selectElement.add(option);
 }
 
-// Sélectionner les éléments HTML correspondant aux modales de connexion, d'inscription et de réservation
+// Eléments HTML correspondant aux modales de connexion, d'inscription et de réservation
 
 const modalConnexion = document.querySelector('#connexionModal');
 const modalInscription = document.querySelector('#inscriptionModal');
@@ -195,7 +260,7 @@ const lienInscription = document.querySelector('#lienInscription');
 const errorInscription = document.querySelector('#errorInscription');
 const modalReservation = document.querySelector('#reservationModal');
 
-// Fonction appelée lors du clic sur le bouton de réservation
+// Clic sur le bouton de réservation
 function btnReservationClick(){
   afficherModal(modalReservation);
 }
@@ -205,20 +270,20 @@ modalReservation.querySelector('.close-formular').addEventListener('click', func
   masquerModal(modalReservation);
 });
 
-// Fonction pour afficher une modale spécifiée
+// Afficher une modale spécifiée
 function afficherModal(modal) {
   modal.classList.add('show');
   modal.style.display = 'block';
   errorInscription.style.display = 'none';
 }
 
-// Fonction pour masquer une modale spécifiée
+// Masquer une modale spécifiée
 function masquerModal(modal) {
   modal.classList.remove('show');
   modal.style.display = 'none';
 }
 
-// Fonction appelée lors du clic sur le bouton de connexion
+// Clic sur le bouton de connexion
 function btnConnexionClick(){
   afficherModal(modalConnexion);
 }

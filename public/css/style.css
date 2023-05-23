@@ -53,7 +53,7 @@ ul {
 }
 
 .form-button {
-  margin-top: 10px; /* Ajoutez ici la marge supérieure souhaitée */
+  margin-top: 10px;
 }
 
 /* HEADER  */
@@ -71,6 +71,7 @@ header {
   width: 100%;
   height: 60px;
 }
+
 .devanture img {
   position: relative;
   width: 100%;
@@ -86,7 +87,6 @@ header {
 #btn-admin{
   display: flex;
   justify-content: flex-end;
-  margin-right: 10px;
 }
 
 .logo1 img {
@@ -186,7 +186,7 @@ nav a:hover {
   }
 }
 
-/*  MODALE reservation */
+/*  MODALE RESERVATION */
 
 .close{
   background-color: transparent;
@@ -351,7 +351,6 @@ body.gallery-active {
 }
 
 @media (max-width: 767px) {
-  /* Petits écrans */
   #gallery-container{
     width: 100%;
     height: 100%;
@@ -366,8 +365,6 @@ body.gallery-active {
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-  /* Ecrans moyens */
-  
   #gallery img {
     width: 33.33%;
     height: auto;
@@ -375,14 +372,12 @@ body.gallery-active {
 }
 
 @media (min-width: 992px) {
-  /* Grand écrans */
   #gallery img {
     width: 25%;
     height: auto;
   }
 }
 @media (min-width: 1440px) {
-  /* Tres grand écrans */
   #gallery img {
     width: 20%;
     height: auto;
@@ -628,11 +623,13 @@ body.gallery-active {
     text-transform: uppercase;
     text-align: center;
   }
+
   .horizontal-menu-list li a:focus,
   .horizontal-menu-list li a:active {
     color: black;
     text-decoration: underline;
   }
+
   .horizontal-menu-list li a:hover {
     text-decoration-color: black;
     text-decoration-thickness: 2px;
@@ -643,7 +640,7 @@ body.gallery-active {
 
 @media (max-width: 500px) {
   .horizontal-menu-list {
-    flex-wrap: nowrap; /* Empêche le retour à la ligne des éléments */
+    flex-wrap: nowrap;
   }
 }
 
@@ -842,6 +839,7 @@ body.gallery-active {
     padding: 10px;
     transition: all 0.5s ease;
   }
+
   .reservation-form-link:hover {
     background-color: #ffffff;
     color: #a42725;
@@ -904,7 +902,6 @@ body.gallery-active {
   background-color: white;
 }
 
-
 .text-gudea {
   font-family: Gudea, serif;
   font-size: 12px;
@@ -926,7 +923,6 @@ body.gallery-active {
   font-weight: 700;
   margin: 15px 0 5px 0;
   font-family: Gudea, serif;
-
 }
 
 #title-infos-pratiques{

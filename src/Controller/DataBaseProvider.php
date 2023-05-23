@@ -150,5 +150,23 @@ class DataBaseProvider
             'weekend_day' => $weekend_day,
         ]);
     }
+
+    public function getUserAllergie($email): string
+    {
+        $pdo = $this->connect();
+        $userReservation = $pdo->prepare('SELECT * FROM reservation WHERE email = :email ORDER BY date DESC LIMIT 1');
+        $userReservation->execute(['email' => $email]);
+
+        // Récupérer l'enregistrement résultant
+        $result = $userReservation->fetch(PDO::FETCH_ASSOC);
+
+        // Vérifier si un enregistrement a été trouvé
+        if ($result) {
+            return  $result['allergie'];
+
+        } else {
+            return "Aucune allergie trouvée pour l'utilisateur.";
+        }
+    }
 }
 

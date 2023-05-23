@@ -9,7 +9,6 @@
         {% if user.getEstAdmin() == true %}
         <div id="btn-admin">
             <button id="infos-pratiques-admin-button"><a href="{{ path('infos-pratiques') }}">Modifier Infos-Pratiques</a></button>
-            <button id="carte-admin-button">Modifier la Carte</button>
         </div>
         {% endif %}
         <div class="row" id="helloUser">
@@ -32,9 +31,9 @@
         </div>
         <div class="col-1 header-buttons">
             {% if userConnected == true %}
-            <button id="deconnexion-btn"><a href="{{ path('deconnexion') }}">Deconnection</a></button>
+                <button id="deconnexion-btn"><a href="{{ path('deconnexion') }}">Deconnection</a></button>
             {% else %}
-            <button id="connexion-btn" onclick="btnConnexionClick();">Connection</button>
+                <button id="connexion-btn" onclick="btnConnexionClick();">Connection</button>
             {% endif %}
             <i class="fa-solid fa-bars fa-xl" id="hamburger" style="color: #a42725; margin: 0 20px 0 20px;"></i>
         </div>
